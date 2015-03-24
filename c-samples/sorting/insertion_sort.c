@@ -1,7 +1,3 @@
-/*
-	Example of insertion sort for an array of integer numbers
-*/
-
 void insertion_sort(int array[], int n)
 {
 	int m, i, j;
@@ -14,7 +10,7 @@ void insertion_sort(int array[], int n)
 			if (m > array[j-1])
 				break;
 				
-			if (m < array[j-1])
+			if (m <= array[j-1])
 				array[j] = array[j-1];
 				
 		}
