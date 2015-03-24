@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ $(whoami) != 'root' ]
+then
+	echo -e "run this script as root for full functionality\n"
+fi
+
+lsblk -o NAME,FSTYPE,MOUNTPOINT,SIZE,OWNER,TYPE

@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# duplete deletes duplicates starting from your current working directory
+
+# all files but not in hidden folders
+for i in $(find . -not -path '*/\.*' -type f)
+do
+	# get the md5 checksum from file 1
+	file1=$(md5sum ${i} | cut -d ' ' -f 1)
+	
+	# all files again for comparison
+	for j in $(find . -not -path '*/\.*' -type f)
+	do
+		# md5sum second file
+		file2=$(md5sum ${j} | cut -d ' ' -f 1)
+		
+		# if md5sum is the same and path is different --> duplicate
+		if [ $file1 == $file2 -a $i != $j ]
+		then
+			echo "duplicate found: ${j} - ${i}"
+			echo -n "do you want to delete ${j}? (y/n) "
+			read input
+			
+			# user wants to delete duplicate ?
+			if [ "$input" == "y" -o "$input" == "Y" ]
+			then
+				rm ${j}
+			fi
+		fi
+	done
+done

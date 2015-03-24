@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# list all files, not paths
+
+# cool way to to cut out always the last part of something
+find . | rev | cut -d '/' -f 1 | rev

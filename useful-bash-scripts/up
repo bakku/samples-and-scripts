@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# this script is based on an idea which I found at Stackoverflow
+# this script takes a number
+# and goes up directories in the amount of this number
+# -h|--help  	-  	help output
+# -r|--reverse 	-	reverse last "up" operation
+
+# check whether script got sourced
+if [ "$0" != "-bash" -a "$0" != "bash" ]
+then
+	echo "you have to source the script in order to work"
+	echo "usage: . up <N>"
+	exit 1
+fi
+
+# reverse option
+if [ "$1" == "-r" -o "$1" == "--reverse" ]
+then
+	# does up history exist?
+	if [ -e /tmp/up ]
+	then
+		cd $(cat /tmp/up)
+	else
+		echo "up history does not exist"
+	fi
+	
+# normal up functionality
+else
+	# if no N was given just use 1
+	if [ ${#} -lt 1 ]
+	then
+		number=1
+	else
+		number=$1
+	fi
+
+	# save current path in history
+	pwd > /tmp/up
+
+	counter=0
+
+	# go up as much as N
+	while [ $counter -lt $number ]
+	do
+		cd ..
+		counter=$((${counter}+1))
+	done
+fi
